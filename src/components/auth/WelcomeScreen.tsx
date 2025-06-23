@@ -3,12 +3,20 @@ import React from 'react';
 import FundWiseLogo from '../FundWiseLogo';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, TrendingUp, Shield, DollarSign } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface WelcomeScreenProps {
   onGetStarted: () => void;
 }
 
 const WelcomeScreen = ({ onGetStarted }: WelcomeScreenProps) => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    // Navigate to landing page to start investing
+    navigate('/');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-cyan-50 relative overflow-hidden">
       {/* Background Pattern */}
@@ -66,11 +74,11 @@ const WelcomeScreen = ({ onGetStarted }: WelcomeScreenProps) => {
 
             {/* CTA Button */}
             <Button
-              onClick={onGetStarted}
+              onClick={handleGetStarted}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300 hover:shadow-lg hover:scale-105 animate-fade-in"
               style={{ animationDelay: '0.6s' }}
             >
-              Get Started Today
+              Start Investing Today
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
 
