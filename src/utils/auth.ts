@@ -4,6 +4,8 @@ interface User {
   id: string;
   email: string;
   name: string;
+  avatar?: string;
+  provider?: 'email' | 'google' | 'github';
 }
 
 interface AuthResponse {
@@ -26,7 +28,8 @@ export const authService = {
         user: {
           id: '1',
           email: email,
-          name: 'Demo User'
+          name: 'Demo User',
+          provider: 'email'
         }
       };
       
@@ -50,7 +53,54 @@ export const authService = {
       user: {
         id: Date.now().toString(),
         email: email,
-        name: name
+        name: name,
+        provider: 'email'
+      }
+    };
+    
+    // Store token in localStorage
+    localStorage.setItem('auth_token', mockResponse.token);
+    localStorage.setItem('user', JSON.stringify(mockResponse.user));
+    
+    return mockResponse;
+  },
+
+  googleAuth: async (): Promise<AuthResponse> => {
+    // Simulate OAuth flow delay
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Mock Google authentication
+    const mockResponse: AuthResponse = {
+      token: 'mock-jwt-token-google-' + Date.now(),
+      user: {
+        id: 'google-' + Date.now(),
+        email: 'user@gmail.com',
+        name: 'Google User',
+        avatar: 'https://lh3.googleusercontent.com/a/default-user=s96-c',
+        provider: 'google'
+      }
+    };
+    
+    // Store token in localStorage
+    localStorage.setItem('auth_token', mockResponse.token);
+    localStorage.setItem('user', JSON.stringify(mockResponse.user));
+    
+    return mockResponse;
+  },
+
+  githubAuth: async (): Promise<AuthResponse> => {
+    // Simulate OAuth flow delay
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Mock GitHub authentication
+    const mockResponse: AuthResponse = {
+      token: 'mock-jwt-token-github-' + Date.now(),
+      user: {
+        id: 'github-' + Date.now(),
+        email: 'user@github.com',
+        name: 'GitHub User',
+        avatar: 'https://github.com/identicons/jasonlong.png',
+        provider: 'github'
       }
     };
     

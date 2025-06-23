@@ -49,6 +49,46 @@ const Auth = () => {
     }
   };
 
+  const handleGoogleAuth = async () => {
+    setIsLoading(true);
+    try {
+      await authService.googleAuth();
+      toast({
+        title: "Welcome to FundWise!",
+        description: "You have successfully signed in with Google",
+      });
+      setCurrentView('dashboard');
+    } catch (error) {
+      toast({
+        title: "Authentication Failed",
+        description: "Unable to sign in with Google. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGithubAuth = async () => {
+    setIsLoading(true);
+    try {
+      await authService.githubAuth();
+      toast({
+        title: "Welcome to FundWise!",
+        description: "You have successfully signed in with GitHub",
+      });
+      setCurrentView('dashboard');
+    } catch (error) {
+      toast({
+        title: "Authentication Failed",
+        description: "Unable to sign in with GitHub. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleLogout = () => {
     setCurrentView('welcome');
   };
@@ -67,6 +107,8 @@ const Auth = () => {
             <LoginForm
               onSwitchToSignup={() => setCurrentView('signup')}
               onLogin={handleLogin}
+              onGoogleAuth={handleGoogleAuth}
+              onGithubAuth={handleGithubAuth}
               isLoading={isLoading}
             />
           </AuthLayout>
@@ -81,6 +123,8 @@ const Auth = () => {
             <SignupForm
               onSwitchToLogin={() => setCurrentView('login')}
               onSignup={handleSignup}
+              onGoogleAuth={handleGoogleAuth}
+              onGithubAuth={handleGithubAuth}
               isLoading={isLoading}
             />
           </AuthLayout>
