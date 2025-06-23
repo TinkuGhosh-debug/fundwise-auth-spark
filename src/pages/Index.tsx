@@ -1,8 +1,15 @@
 
-import Auth from './Auth';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
-  return <Auth />;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate('/');
+  }, [navigate]);
+
+  return null;
 };
 
 export default Index;
